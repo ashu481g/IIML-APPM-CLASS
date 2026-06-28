@@ -1,0 +1,258 @@
+.app {
+  width: min(720px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 48px 0 64px;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.app-header h1 {
+  margin: 0 0 8px;
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  letter-spacing: -0.04em;
+  color: var(--text-strong);
+}
+
+.app-header p {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.app-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.task-input {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 12px;
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.task-input input,
+.task-input select,
+.task-edit {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: transparent;
+  color: var(--text-strong);
+}
+
+.task-input input:focus,
+.task-input select:focus,
+.task-edit:focus {
+  outline: 2px solid rgba(79, 70, 229, 0.25);
+  border-color: var(--accent);
+}
+
+.task-input button,
+.task-actions button,
+.filter-group button,
+.task-footer > .ghost {
+  border: none;
+  border-radius: 12px;
+  padding: 12px 16px;
+  background: var(--accent);
+  color: white;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.task-input button:hover:not(:disabled),
+.filter-group button.active {
+  background: var(--accent-hover);
+}
+
+.task-input button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.task-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.task-item:last-child {
+  border-bottom: none;
+}
+
+.task-check {
+  position: relative;
+  display: inline-flex;
+}
+
+.task-check input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--border);
+  border-radius: 999px;
+  display: inline-block;
+  transition: all 0.15s ease;
+}
+
+.task-check input:checked + .checkmark {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 3px var(--surface);
+}
+
+.task-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  text-align: left;
+}
+
+.task-title {
+  color: var(--text-strong);
+  word-break: break-word;
+}
+
+.task-item.completed .task-title {
+  text-decoration: line-through;
+  opacity: 0.55;
+}
+
+.priority {
+  width: fit-content;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+
+.priority-low {
+  background: rgba(34, 197, 94, 0.15);
+  color: #15803d;
+}
+
+.priority-medium {
+  background: rgba(245, 158, 11, 0.15);
+  color: #b45309;
+}
+
+.priority-high {
+  background: rgba(239, 68, 68, 0.15);
+  color: #b91c1c;
+}
+
+.task-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.ghost {
+  background: transparent !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+}
+
+.ghost:hover:not(:disabled) {
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
+}
+
+.ghost.danger:hover {
+  border-color: var(--danger) !important;
+  color: var(--danger) !important;
+}
+
+.ghost:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.empty-state {
+  padding: 48px 20px;
+  text-align: center;
+}
+
+.empty-state p {
+  margin: 0 0 6px;
+  font-size: 1.1rem;
+  color: var(--text-strong);
+}
+
+.task-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+  background: rgba(148, 163, 184, 0.06);
+}
+
+.task-count {
+  font-size: 0.95rem;
+}
+
+.filter-group {
+  display: flex;
+  gap: 8px;
+}
+
+.filter-group button {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.filter-group button.active {
+  color: white;
+  border-color: var(--accent);
+}
+
+@media (max-width: 640px) {
+  .task-input {
+    grid-template-columns: 1fr;
+  }
+
+  .task-item {
+    grid-template-columns: auto 1fr;
+  }
+
+  .task-actions {
+    grid-column: 2;
+    justify-content: flex-start;
+  }
+
+  .task-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-group {
+    justify-content: center;
+  }
+}
