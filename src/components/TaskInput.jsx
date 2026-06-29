@@ -6,13 +6,13 @@ const PRIORITIES = [
   { value: 'high', label: 'High' },
 ]
 
-export default function TaskInput({ onAdd }) {
+export default function TaskInput({ onAdd, selectedDate }) {
   const [title, setTitle] = useState('')
   const [priority, setPriority] = useState('medium')
 
   function handleSubmit(event) {
     event.preventDefault()
-    if (onAdd(title, priority)) {
+    if (onAdd(title, priority, selectedDate)) {
       setTitle('')
       setPriority('medium')
     }
