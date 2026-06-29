@@ -1,12 +1,13 @@
+/* ── Layout ─────────────────────────────────────────────────── */
 .app {
-  width: min(720px, calc(100% - 32px));
+  width: min(1100px, calc(100% - 32px));
   margin: 0 auto;
   padding: 48px 0 64px;
 }
 
 .app-header {
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 32px;
 }
 
 .app-header h1 {
@@ -21,6 +22,153 @@
   font-size: 1.05rem;
 }
 
+.app-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+/* ── Calendar column ─────────────────────────────────────────── */
+.calendar-col {
+  position: sticky;
+  top: 24px;
+}
+
+.calendar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  padding: 16px;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.cal-month-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-strong);
+  letter-spacing: -0.02em;
+}
+
+.cal-nav-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  line-height: 1;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.cal-nav-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.cal-dow-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 6px;
+}
+
+.cal-dow {
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.04em;
+  padding: 4px 0;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.cal-cell {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  gap: 2px;
+  padding: 2px;
+  transition: background 0.12s;
+}
+
+.cal-cell.empty {
+  cursor: default;
+  pointer-events: none;
+}
+
+.cal-cell:not(.empty):hover {
+  background: rgba(79, 70, 229, 0.08);
+}
+
+.cal-cell.cal-today .cal-day-num {
+  background: var(--accent);
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cal-cell.cal-selected:not(.cal-today) {
+  background: rgba(79, 70, 229, 0.1);
+  outline: 1.5px solid var(--accent);
+}
+
+.cal-cell.cal-today.cal-selected {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.cal-day-num {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-strong);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cal-dots {
+  display: flex;
+  gap: 2px;
+  justify-content: center;
+}
+
+.cal-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Task panel ──────────────────────────────────────────────── */
 .app-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -29,11 +177,33 @@
   overflow: hidden;
 }
 
+.day-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--border);
+  gap: 8px;
+}
+
+.day-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-strong);
+  letter-spacing: -0.02em;
+}
+
+.day-count {
+  font-size: 0.82rem;
+  color: var(--text);
+}
+
+/* ── Task input ──────────────────────────────────────────────── */
 .task-input {
   display: grid;
   grid-template-columns: 1fr auto auto;
   gap: 12px;
-  padding: 20px;
+  padding: 16px 20px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -42,7 +212,7 @@
 .task-edit {
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 12px 14px;
+  padding: 10px 14px;
   background: transparent;
   color: var(--text-strong);
 }
@@ -60,7 +230,7 @@
 .task-footer > .ghost {
   border: none;
   border-radius: 12px;
-  padding: 12px 16px;
+  padding: 10px 16px;
   background: var(--accent);
   color: white;
   transition: background 0.15s ease, opacity 0.15s ease;
@@ -76,6 +246,7 @@
   cursor: not-allowed;
 }
 
+/* ── Task list ───────────────────────────────────────────────── */
 .task-list {
   list-style: none;
   margin: 0;
@@ -87,7 +258,7 @@
   grid-template-columns: auto 1fr auto;
   gap: 14px;
   align-items: center;
-  padding: 16px 20px;
+  padding: 14px 20px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -146,24 +317,13 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  padding: 4px 8px;
+  padding: 3px 8px;
   border-radius: 999px;
 }
 
-.priority-low {
-  background: rgba(34, 197, 94, 0.15);
-  color: #15803d;
-}
-
-.priority-medium {
-  background: rgba(245, 158, 11, 0.15);
-  color: #b45309;
-}
-
-.priority-high {
-  background: rgba(239, 68, 68, 0.15);
-  color: #b91c1c;
-}
+.priority-low  { background: rgba(34, 197, 94, 0.15); color: #15803d; }
+.priority-medium { background: rgba(245, 158, 11, 0.15); color: #b45309; }
+.priority-high { background: rgba(239, 68, 68, 0.15);  color: #b91c1c; }
 
 .task-actions {
   display: flex;
@@ -191,36 +351,33 @@
   cursor: not-allowed;
 }
 
+/* ── Empty state ─────────────────────────────────────────────── */
 .empty-state {
-  padding: 48px 20px;
+  padding: 40px 20px;
   text-align: center;
 }
 
 .empty-state p {
   margin: 0 0 6px;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   color: var(--text-strong);
 }
 
+/* ── Footer / filters ────────────────────────────────────────── */
 .task-footer {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
+  padding: 14px 20px;
   border-top: 1px solid var(--border);
   background: rgba(148, 163, 184, 0.06);
 }
 
-.task-count {
-  font-size: 0.95rem;
-}
+.task-count { font-size: 0.9rem; }
 
-.filter-group {
-  display: flex;
-  gap: 8px;
-}
+.filter-group { display: flex; gap: 8px; }
 
 .filter-group button {
   background: transparent;
@@ -233,7 +390,16 @@
   border-color: var(--accent);
 }
 
-@media (max-width: 640px) {
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 760px) {
+  .app-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .calendar-col {
+    position: static;
+  }
+
   .task-input {
     grid-template-columns: 1fr;
   }
